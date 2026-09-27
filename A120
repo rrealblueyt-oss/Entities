@@ -1,0 +1,110 @@
+local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/DOORS-Entity-Spawner-V2/main/init.luau"))()
+
+local entity = Spawner:Create({
+	Entity = {
+		Name = "???",
+		Asset = "https://raw.githubusercontent.com/rrealblueyt-oss/Model/main/a120New.rbmx",
+		HeightOffset = 0
+	},
+	Lights = {
+		Flicker = {
+			Enabled = true,
+			Duration = 3
+		},
+		Shatter = true,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	CameraShake = {
+		Enabled = false,
+		Range = 100,
+		Values = {1.5, 20, 0.1, 1}
+	},
+	Movement = {
+		Speed = 300,
+		Delay = 2,
+		Reversed = false
+	},
+	Rebounding = {
+		Enabled = true,
+		Type = "Ambush",
+		Min = 10,
+		Max = 10,
+		Delay = 0
+	},
+	Damage = {
+		Enabled = true,
+		Range = 40,
+		Amount = 125
+	},
+	Crucifixion = {
+		Enabled = true,
+		Range = 40,
+		Resist = true,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding",
+		Hints = {"???", "???", "???", "???"},
+		Cause = "???"
+	}
+})
+
+entity:SetCallback("OnSpawned", function()
+    local entityModel = entity.Model
+    if entityModel then
+        local primaryPart = entityModel.PrimaryPart or entityModel:FindFirstChildWhichIsA("BasePart")
+        if primaryPart then
+            local pointLight = Instance.new("PointLight")
+            pointLight.Color = Color3.fromRGB(255, 255, 255)
+            pointLight.Brightness = 3
+            pointLight.Range = 30
+            pointLight.Parent = primaryPart
+        end
+
+        local function GetGitSound(GithubSnd, SoundName)
+            local url = GithubSnd
+            if not isfile(SoundName .. ".mp3") then
+                writefile(SoundName .. ".mp3", game:HttpGet(url))
+            end
+            local sound = Instance.new("Sound")
+            sound.SoundId = (getcustomasset or getsynasset)(SoundName .. ".mp3")
+            return sound
+        end
+
+        local zephyr = game.Workspace["???"].A120New
+        local Jumpscare = GetGitSound("https://raw.githubusercontent.com/rrealblueyt-oss/Mp3/main/a120%20.mp3?raw=true", "lol")
+        Jumpscare.Parent = zephyr
+        Jumpscare.Volume = 10
+        Jumpscare.PlaybackSpeed = 1
+        Jumpscare.Looped = true
+        Jumpscare.PlaybackRegionsEnabled = true
+        Jumpscare.PlaybackRegion = NumberRange.new(0, 9)
+        Jumpscare:Play()
+    end
+end)
+
+entity:SetCallback("OnStartMoving", function()
+end)
+
+entity:SetCallback("OnEnterRoom", function(room: Model, firstTime: boolean)
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight: boolean)
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound: boolean)
+end)
+
+entity:SetCallback("OnDespawning", function()
+end)
+
+entity:SetCallback("OnDespawned", function()
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth: number)
+end)
+
+entity:Run(true)
