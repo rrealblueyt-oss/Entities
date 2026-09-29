@@ -1,0 +1,143 @@
+local Spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/DOORS-Entity-Spawner-V2/main/init.luau"))()
+local DoorsNotify = loadstring(game:HttpGet("https://raw.githubusercontent.com/Guestly-Alt/Scripts/refs/heads/main/AchievementHolder.lua"))()
+
+local AchievementShown = false
+local PlayerDied = false
+
+local function ShowAchievement()
+	if AchievementShown then return end
+	AchievementShown = true
+
+	DoorsNotify({
+		Style = "mở khoá một thành tựu mới",
+		Title = "W̶̢̢̨̨̞͎̫̬͇̫̱̙̦̯̉̆̏̆͐̑̎̄̉͗̏͂̂̽̚͝ͅͅh̵͍̻̣̗̟̟͊̓͂͂͌̽͆̄͂̀̈́̈́̍̊͒́̐1̶̧̧̧̡̥̘̰̥̻̺̙͙̣͇̭̺̝̭̼̣͒̌͌͋͒͌͒t̵̟̹͓̭̹͔̩̪͍̙̙̜̺͇̥͍̾̀̔͗̏̅́͛͛́̓̓̅̉͠͝3̷̛̠̻̤̘̗̜̮͔̹̼̺͈̟͖͆̒́̐͆́͗̎̊̉̇͋̓͑̔́́̔͘͝͠͝ͅ",
+		Description = "How?",
+		Reason = "Survive wh1t3",
+		Image = "93674549075813",
+		Time = 5
+	})
+end
+
+local function ShutdownOnDeath()
+	if PlayerDied then return end
+	PlayerDied = true
+	ShowAchievement()
+	task.wait(1)
+	game:Shutdown()
+end
+
+local entity = Spawner:Create({
+	Entity = {
+		Name = "W̶̢̢̨̨̞͎̫̬͇̫̱̙̦̯̉̆̏̆͐̑̎̄̉͗̏͂̂̽̚͝ͅͅh̵͍̻̣̗̟̟͊̓͂͂͌̽͆̄͂̀̈́̈́̍̊͒́̐1̶̧̧̡̥̘̰̺̙͙̣͇̭̺̝̭̼̣͒̌͌͋͒͌͒t̵̟̹͓̭̹͔̩̪͍̙̙̜̺͇̥͍̾̀̔͗̏̅́͛͛́̓̓̅̉͠͝3̷̛̠̻̤̘̗̜̮͔̹̼̺͈̟͖͆̒́̐͆́͗̎̊̉̇͋̓͑́̔͘͝͠͝ͅ",
+		Asset = "https://raw.githubusercontent.com/rrealblueyt-oss/Model/main/WH1T3NEW.rbxm",
+		HeightOffset = 0
+	},
+	Lights = {
+		Flicker = {
+			Enabled = false,
+			Duration = 3
+		},
+		Shatter = true,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	CameraShake = {
+		Enabled = true,
+		Range = 100,
+		Values = {12, 20, 0.1, 1}
+	},
+	Movement = {
+		Speed = 900,
+		Delay = 3,
+		Reversed = false
+	},
+	Rebounding = {
+		Enabled = true,
+		Type = "Ambush",
+		Min = 1,
+		Max = 2,
+		Delay = 3
+	},
+	Damage = {
+		Enabled = true,
+		Range = 40,
+		Amount = 125
+	},
+	Crucifixion = {
+		Enabled = true,
+		Range = 40,
+		Resist = true,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding",
+		Hints = {
+			"W̶̢̢̨̨̞͎̫̬͇̫̱̙̦̯̉̆̏̆͐̑̎̄̉͗̏͂̂̽̚͝ͅͅh̵͍̻̣̗̟̟͊̓͂͂͌̽͆̄͂̀̈́̈́̍̊͒́̐1̶̧̧̧̡̥̘̰̥̻̺̙͙̣͇̭̺̝̭̼̣͒̌͌͋͒͌͒t̵̟̹͓̭̹͔̩̪͍̙̙̜̺͇̥͍̾̀̔͗̏̅́͛͛́̓̓̅̉͠͝3̷̛̠̻̤̘̗̜̮͔̹̼̺͈̟͖͆̒́̐͆́͗̎̊̉̇͋̓͑̔́́̔͘͝͠͝ͅ",
+			"W̶̢̢̨̨̞͎̫̬͇̫̱̙̦̯̉̆̏̆͐̑̎̄̉͗̏͂̂̽̚͝ͅͅh̵͍̻̣̗̟̟͊̓͂͂͌̽͆̄͂̀̈́̈́̍̊͒́̐1̶̧̧̡̥̘̰̺̙͙̣͇̭̺̝̣͇̭̺̝̭̼̣͒̌͌͋͒͌͒t̵̟̹͓̭̹͔̩̪͍̙̙̜̺͇̥͍̾̀̔͗̏̅́͛͛́̓̓̅̉͠͝3̷̛̠̻̤̘̗̜̮͔̹̼̺͈̟͖͆̒́̐͆́͗̎̊̉̇͋̓͑̔́́̔͘͝͠͝ͅ"
+		},
+		Cause = "???"
+	}
+})
+
+entity:SetCallback("OnSpawned", function()
+	local roomNumber = game:GetService("ReplicatedStorage").GameData.LatestRoom.Value
+	local room = workspace.CurrentRooms:FindFirstChild(tostring(roomNumber))
+
+	if room then
+		for _, v in ipairs(room:GetDescendants()) do
+			if v:IsA("BasePart") and v.Material == Enum.Material.Neon then
+				v.Color = Color3.fromRGB(255, 0, 0)
+			elseif v:IsA("PointLight") or v:IsA("SpotLight") or v:IsA("SurfaceLight") then
+				v.Color = Color3.fromRGB(255, 0, 0)
+			end
+		end
+	end
+
+	if not isfile("wh1t3 pro.mp3") then
+		writefile("wh1t3 pro.mp3", game:HttpGet("https://raw.githubusercontent.com/rrealblueyt-oss/Mp3/main/wh1t3_music.mp3"))
+	end
+
+	local sound = Instance.new("Sound")
+	sound.SoundId = (getcustomasset or getsynasset)("wh1t3 pro.mp3")
+	sound.Volume = 80
+	sound.PlaybackSpeed = 1
+	sound.Looped = false
+	sound.PlaybackRegionsEnabled = true
+	sound.PlaybackRegion = NumberRange.new(0, 9)
+	sound.Parent = workspace
+	sound:Play()
+end)
+
+entity:SetCallback("OnStartMoving", function()
+end)
+
+entity:SetCallback("OnEnterRoom", function(room, firstTime)
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight)
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+end)
+
+entity:SetCallback("OnDespawning", function()
+	if not PlayerDied then
+		ShowAchievement()
+	end
+end)
+
+entity:SetCallback("OnDespawning", function()
+	if not PlayerDied then
+		ShowAchievement()
+	end
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth)
+	if newHealth <= 0 then
+		ShutdownOnDeath()
+	end
+end)
+
+entity:Run(true)
