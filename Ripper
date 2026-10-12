@@ -1,0 +1,222 @@
+
+getgenv().OgHungerNewSpawner = nil
+
+local success, Spawner = pcall(function()
+    return loadstring(game:HttpGet("https://raw.githubusercontent.com/eoyoustme/Mayhem-Remake/refs/heads/main/OgHungerNewSpawner"))()
+end)
+
+if not success or not Spawner then
+    return
+end
+
+local entity = Spawner:Create({
+    Entity = {
+        Name = "ripper remake",
+        Asset = "https://github.com/rrealblueyt-oss/Model/raw/main/ripper%20remake.rbxm",
+        HeightOffset = 0
+    },
+    Lights = {
+        Flicker = {
+            Enabled = true,
+            Duration = 2
+        },
+        Shatter = false,
+        Repair = false
+    },
+    Earthquake = {
+        Enabled = false
+    },
+    Spawned = {
+        ChangeColorWhenSpawn = true,
+        Rainbow = false,
+        Color = Color3.fromRGB(255, 0, 0)
+    },
+    CameraShake = {
+        Enabled = true,
+        Range = 100,
+        Values = {5, 20, 0.1, 1}
+    },
+    Movement = {
+        Speed = 700,
+        SpeedFast = 470,
+        MoveFastNotEnter = false,
+        IsMoveWhenWHere = false,
+        Delay = 3,
+        Reversed = false,
+        EndWhenEnterLatestRoom = false,
+        EndDelay = 0,
+        ReboundMoving = false,
+        TweenSecond = 1.5,
+        ReboundMoveStyle = false,
+        ReboundStyleTimes = 5,
+        ReboundStyleSound = "rbxassetid://9114221327",
+        ReboundStyleVolume = 5,
+        ReboundStyleDelay = 2,
+        IsMoveBackWardAndMore = false,
+        FasterAndFaster = false,
+        ChasePlayerWhenSee = true,
+        SpeedWhenChase = 35,
+        GlitchMove = false,
+        GlitchMoveSoundId = "rbxassetid://0",
+        Fakeout = {
+            Enabled = false,
+            RandomFakeout = false,
+            EndSound = "rbxassetid://0",
+            EndDelay = 2,
+            SpeedMultiplier = 1
+        }
+    },
+    Jumpscare = {
+        Enabled = false,
+        Image1 = "rbxassetid://11253398403",
+        Image2 = "rbxassetid://12293509957",
+        Sound1 = "rbxassetid://0",
+        Sound2 = "rbxassetid://109582246349306",
+        Tease = {
+            [1] = true,
+            Min = 1,
+            Max = 1
+        },
+        Flashing = {
+            [1] = true,
+            [2] = Color3.fromRGB(255, 255, 255)
+        },
+        Shake = true
+    },
+    Rebounding = {
+        Enabled = false,
+        Type = "Ambush",
+        Min = 0,
+        Max = 0,
+        Delay = 2
+    },
+    Damage = {
+        Enabled = true,
+        KillOnMove = false,
+        Range = 40,
+        Amount = 125,
+        Cooldown = 1,
+        IgnoreHiding = false,
+        JumpscareRipper = {
+            Enabled = true,
+            TargetPartName = "Ripper remake",
+            AttachmentName = "remake",
+            ParticleName = "ParticleEmitter",
+            ParticleTexture = "rbxassetid://11875610645",
+            SoundUrl = "https://github.com/eoyoustme/back/raw/main/Kill_with_static.mp3",
+            SlamSoundId = "rbxassetid://0",
+            EndSoundId = "rbxassetid://11875610645",
+            Images = {
+                "rbxassetid://11875610645",
+                "rbxassetid://11875610645",
+                "rbxassetid://11875610645",
+                "rbxassetid://11875610645"
+            },
+            FlashDuration = 1.6
+        }
+    },
+    Crucifixion = {
+        Type = "Curious",
+        Enabled = true,
+        Range = 40,
+        Resist = false,
+        Break = true
+    },
+    Death = {
+        Type = "Guiding",
+        Hints = {"your die to ripper", "hide ripper", ".", "..."},
+        Cause = "ripper"
+    }
+})
+
+local function MakeLightStandRed()
+    for _, obj in ipairs(workspace:GetDescendants()) do
+        if obj.Name == "LightStand" then
+            if obj:IsA("BasePart") then
+                obj.Material = Enum.Material.Neon
+                obj.Color = Color3.fromRGB(255, 0, 0)
+            end
+
+            for _, child in ipairs(obj:GetDescendants()) do
+                if child:IsA("BasePart") then
+                    child.Material = Enum.Material.Neon
+                    child.Color = Color3.fromRGB(255, 0, 0)
+                elseif child:IsA("PointLight")
+                    or child:IsA("SpotLight")
+                    or child:IsA("SurfaceLight") then
+                    child.Color = Color3.fromRGB(255, 0, 0)
+                end
+            end
+        end
+    end
+end
+
+MakeLightStandRed()
+
+workspace.DescendantAdded:Connect(function(obj)
+    if obj.Name == "LightStand" then
+        task.wait(0.1)
+        MakeLightStandRed()
+    end
+end)
+
+entity:SetCallback("OnSpawned", function()
+    MakeLightStandRed()
+end)
+
+entity:SetCallback("OnStartMoving", function()
+end)
+
+entity:SetCallback("OnEnterRoom", function(room: Model, firstTime: boolean)
+    MakeLightStandRed()
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight: boolean)
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound: boolean)
+end)
+
+entity:SetCallback("PlayerGetSee", function()
+end)
+
+entity:SetCallback("EndWhenGO", function()
+end)
+
+entity:SetCallback("OnDespawning", function()
+end)
+
+entity:SetCallback("OnDespawned", function()
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth: number)
+end)
+
+entity:SetCallback("OnReachedNode", function(node: BasePart)
+end)
+
+entity:SetCallback("OnKillPlayer", function()
+end)
+
+entity:SetCallback("CrucifixionOverwrite", function()
+end)
+
+entity:SetCallback("OnFakeoutStart", function()
+end)
+
+entity:SetCallback("OnFakeoutEnd", function()
+end)
+
+entity:SetCallback("OnReboundStyle", function(newEntity: any)
+end)
+
+entity:SetCallback("OnNotReachedLatestRoom", function(room: Model, latestRoom: Model)
+end)
+
+entity:SetCallback("OnReachedLatestRoom", function(room: Model)
+end)
+
+entity:SetCallback("OnLeftLatestRoom", function(room: Model)
+end)
+
+entity:Run(true)
