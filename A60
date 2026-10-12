@@ -1,0 +1,214 @@
+getgenv().OgHungerNewSpawner = nil 
+
+local success, Spawner = pcall(function()
+	return loadstring(game:HttpGet("https://raw.githubusercontent.com/eoyoustme/Mayhem-Remake/refs/heads/main/OgHungerNewSpawner"))()
+end)
+
+if not success or not Spawner then
+	return
+end
+
+local entity = Spawner:Create({
+	Entity = {
+		Name = "a-60",
+		Asset = "https://github.com/rrealblueyt-oss/Model/raw/main/Place_10959918411_Model_A-60%20remake_1791817175.rbxm",
+		HeightOffset = 0
+	},
+	Lights = {
+		Flicker = {
+			Enabled = true,
+			Duration = 5
+		},
+		Shatter = true,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	Spawned = {
+		ChangeColorWhenSpawn = false, 
+		Rainbow = true,               
+		Color = Color3.fromRGB(255, 255, 255)
+	},
+	CameraShake = {
+		Enabled = true,
+		Range = 100,
+		Values = {5, 20, 0.1, 1}
+	},
+
+	Movement = {
+		Speed = 900,
+		SpeedFast = 470,                  
+		MoveFastNotEnter = false,            
+		IsMoveWhenWHere = false,
+		Delay = 1,
+		Reversed = false,                  
+		EndWhenEnterLatestRoom = false,   
+		EndDelay = 0,
+
+		ReboundMoving = false,          
+		TweenSecond = 1.5,            
+
+		ReboundMoveStyle = false,      
+		ReboundStyleTimes = 5,        
+		ReboundStyleSound = "rbxassetid://9114221327", 
+		ReboundStyleVolume = 5,
+		ReboundStyleDelay = 2, 
+		IsMoveBackWardAndMore = false, 
+
+		FasterAndFaster = false,
+		ChasePlayerWhenSee = true,
+		SpeedWhenChase = 35,
+
+		GlitchMove = false,
+		GlitchMoveSoundId = "rbxassetid://0",
+
+		Fakeout = {
+			Enabled = false,
+			RandomFakeout = false,
+			EndSound = "rbxassetid://0",
+			EndDelay = 2,
+			SpeedMultiplier = 1
+		}
+	},
+
+	Jumpscare = {
+		Enabled = true,
+		Image1 = "rbxassetid://14168728251", 
+		Image2 = "rbxassetid://14168728251",
+		Sound1 = "rbxassetid://0", 
+		Sound2 = "rbxassetid://0", 
+		Tease = {
+			[1] = true,
+			Min = 2,
+			Max = 2
+		},
+		Flashing = {
+			[1] = false,
+			[2] = Color3.fromRGB(255, 255, 255)
+		},
+		Shake = true
+	},
+	Rebounding = {
+		Enabled = true,
+		Type = "Ambush",
+		Min = 4,
+		Max = 4,
+		Delay = 1
+	},
+	Damage = {
+		Enabled = true,
+		KillOnMove = false,            
+		Range = 40,
+		Amount = 125,
+		Cooldown = 1, 
+		IgnoreHiding = false,
+
+		JumpscareRipper = {
+			Enabled = false,
+			TargetPartName = "Ripper remake",
+			AttachmentName = "remake",
+			ParticleName = "ParticleEmitter",
+			ParticleTexture = "rbxassetid://11875610645",
+			SoundUrl = "https://github.com/eoyoustme/back/raw/main/Kill_with_static.mp3",
+			SlamSoundId = "rbxassetid://0",
+			EndSoundId = "rbxassetid://11875610645",
+			Images = {
+				"rbxassetid://11875610645",
+				"rbxassetid://11875610645",
+				"rbxassetid://11875610645",
+				"rbxassetid://11875610645"
+			},
+			FlashDuration = 1.6
+		}
+	},
+	Crucifixion = {
+		Type = "Curious",
+		Enabled = true,
+		Range = 40,
+		Resist = false,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding",
+		Hints = {"your die to a60", "hide a60", ".", "..."},
+		Cause = "a60"
+	}
+})
+
+entity:SetCallback("OnSpawned", function()
+end)
+
+entity:SetCallback("OnStartMoving", function()
+
+end)
+
+entity:SetCallback("OnEnterRoom", function(room: Model, firstTime: boolean)
+
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight: boolean)
+
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound: boolean)
+
+end)
+
+entity:SetCallback("PlayerGetSee", function()
+
+end)
+
+entity:SetCallback("EndWhenGO", function()
+end)
+
+entity:SetCallback("OnDespawning", function()
+
+end)
+
+entity:SetCallback("OnDespawned", function()
+
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth: number)
+end)
+
+entity:SetCallback("OnReachedNode", function(node: BasePart)
+
+end)
+
+entity:SetCallback("OnKillPlayer", function()
+
+end)
+
+entity:SetCallback("CrucifixionOverwrite", function()
+
+end)
+
+entity:SetCallback("OnFakeoutStart", function()
+
+end)
+
+entity:SetCallback("OnFakeoutEnd", function()
+
+end)
+
+entity:SetCallback("OnReboundStyle", function(newEntity: any)
+
+end)
+
+entity:SetCallback("OnNotReachedLatestRoom", function(room: Model, latestRoom: Model)
+
+end)
+
+entity:SetCallback("OnReachedLatestRoom", function(room: Model)
+
+end)
+
+entity:SetCallback("OnLeftLatestRoom", function(room: Model)
+
+end)
+
+---====== Run Entity ======---
+
+entity:Run(true)
